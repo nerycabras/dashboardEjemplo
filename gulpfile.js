@@ -78,6 +78,8 @@ gulp.task('expressExample', function() {
   app.listen(3000, '0.0.0.0');
 });
 
+// utilizar esta terea cuando se colocarà en produccion o pruebas
+// de modo que comprimer los archivos, no se carga nodemon ni browser syn
 gulp.task('server', ['imagemin', 'htmlpage', 
   'scripts', 'styles','express'], function() {
     console.log('Se ejecutò server type');
@@ -105,7 +107,7 @@ gulp.task('server', ['imagemin', 'htmlpage',
 
     });
 
-// default gulp task
+// tarea por default, inicia el browser sync y nodemon de manera 
 gulp.task('default',['browser-sync'], function() {
   console.log('Se ejecutò local');
 });

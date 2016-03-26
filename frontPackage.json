@@ -1,0 +1,8 @@
+{
+    "descripcion":"paquetes que se utilizaran par el fron end, este archivo serà leido por express.",
+    "version":"1.0.0",
+    "frontDependencies": {
+        "browser-sync": "^2.11.2"
+      }
+
+}
