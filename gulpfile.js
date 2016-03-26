@@ -9,15 +9,18 @@ var imagemin = require('gulp-imagemin');
 // include plug-ins
 var minifyHTML = require('gulp-minify-html')
 
-
+// include js 
 var concat = require('gulp-concat');
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
 
-
+//include css
 var autoprefix = require('gulp-autoprefixer');
 var minifyCSS = require('gulp-minify-css');
 
+
+var browserSync = require('browser-sync');
+var nodemon = require('gulp-nodemon');
 
 // JS hint task
 gulp.task('jshint', function() {
@@ -68,21 +71,69 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./build/js/'));
 });
 
+gulp.task('expressExample', function() {
+  var express = require('express');
+  var app = express();
+  app.use(express.static(__dirname+"/src"));
+  app.listen(3000, '0.0.0.0');
+});
+
+gulp.task('server', ['imagemin', 'htmlpage', 
+  'scripts', 'styles','express'], function() {
+    console.log('Se ejecutò server type');
+    // watch for HTML changes
+    // se ejecuta tarea al momento de generar un cambio en en cualquier
+    // cambio html
+    gulp.watch('./src/html/*.html', function() {
+      gulp.run('htmlpage');
+    });
+
+    // watch for JS changes
+    // se ejecuta tarea al momento de generar un cambio en en cualquier
+    // cambio js
+    gulp.watch('./src/js/*.js', function() {
+      gulp.run('jshint', 'scripts');
+    });
+
+    // watch for CSS changes
+    // se ejecuta tarea al momento de generar un cambio en en cualquier
+    // cambio js
+    gulp.watch('./src/css/*.css', function() {
+      gulp.run('styles');
+    });
+
+
+    });
+
 // default gulp task
-gulp.task('default', ['imagemin', 'htmlpage', 'scripts', 'styles'], function() {
-  // watch for HTML changes
-  gulp.watch('./src/html/*.html', function() {
-    gulp.run('htmlpage');
-  });
+gulp.task('default',['browser-sync'], function() {
+  console.log('Se ejecutò local');
+});
 
-  // watch for JS changes
-  gulp.watch('./src/js/*.js', function() {
-    gulp.run('jshint', 'scripts');
-  });
 
-  // watch for CSS changes
-  gulp.watch('./src/css/*.css', function() {
-    gulp.run('styles');
+// actualizar 
+gulp.task('browser-sync', ['nodemon'], function() {
+  browserSync.init(null, {
+    proxy: "http://localhost:3000",
+        files: ["./src/**/*.*"],
+        browser: "google chrome",
+        port: 7000
+  });
+});
+
+gulp.task('nodemon', function (cb) {
+  
+  var started = false;
+  
+  return nodemon({
+    script: 'app.js'
+  }).on('start', function () {
+    // to avoid nodemon being started multiple times
+    // thanks @matthisk
+    if (!started) {
+      cb();
+      started = true; 
+    } 
   });
 });
 
