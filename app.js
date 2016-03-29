@@ -18,6 +18,7 @@ var colors = require('colors');
 // funcion para leer los paquetes del node_modules y ponerlos automàtiamente
 // como paquetes que puedan ser utilizados por el front-end
 function leerPaquetesFrontEnd(){
+	
 	var obj;
 	fs.readFile(NOMBRE_JSON_FRONT_PAQUETES, 'utf8', function (err, data) {
 		  if (err) throw err;
@@ -36,17 +37,18 @@ function leerPaquetesFrontEnd(){
 
 		  //leer proyecto inicial y hacerlos pùblicos
 		  console.log(colors.green('proyectos inicial al fron end express'));
-		  var proyectoInicial =obj.proyectosIncluidos.proyectoInicial;
-		  var assetsPath=PATH_CORE+proyectoInicial+'/assets';
+		  var proyectoInicial =obj.proyectosIncluidos.proyectoInicial
+
+		  var assetsPath=PATH_CORE+proyectoInicial+'/public/assets';
 		  var assetsProject='/'+proyectoInicial+'/';
 
-		  var routerPath=PATH_CORE+proyectoInicial+'/router/';
+		  var routerPath=PATH_CORE+proyectoInicial+'/public/router/';
 		  var routerProject='/'+proyectoInicial+'/router/';
 
-		  var controllerPath= PATH_CORE+proyectoInicial+'/controller/';
+		  var controllerPath= PATH_CORE+proyectoInicial+'/public/controller/';
 		  var controllerProject='/'+proyectoInicial+'/controller/';
 
-		  var viewsPath=PATH_CORE+proyectoInicial+'/views/';
+		  var viewsPath=PATH_CORE+proyectoInicial+'/public/views/';
 		  var viewsProject='/'+proyectoInicial+'/views/';
 
 		  app.use(assetsProject, 
@@ -66,12 +68,12 @@ function leerPaquetesFrontEnd(){
 			    	colors.yellow(controllerPath +'==>'+controllerProject));
 		   console.log(
 			    	colors.yellow(viewsPath +'==>'+viewsProject));
-		   console.log("--------------");
-		   //console.log(app);
-
+		   app.use("/inicio/", 
+		  		express.static(__dirname+"/src/"));
 		});
 }
 
+leerPaquetesFrontEnd();
 
 
 
@@ -82,7 +84,7 @@ function leerPaquetesFrontEnd(){
 
 
 // agregar paquetes por default al front end
-leerPaquetesFrontEnd();
+//leerPaquetesFrontEnd();
 
 /*
 app.get('/', function(req, res) {
