@@ -1,7 +1,7 @@
 'use strict';
 const NOMBRE_RAIZ_FRONT_END = "/component/";
 const NOMBRE_JSON_FRONT_PAQUETES = 'frontPackage.json';
-
+const PATH_CORE = __dirname+"/packages/core/";
 
 // simple express server
 var express = require('express');
@@ -33,16 +33,60 @@ function leerPaquetesFrontEnd(){
 			    	NOMBRE_RAIZ_FRONT_END+name
 			    	));
 			}
+
+		  //leer proyecto inicial y hacerlos pùblicos
+		  console.log(colors.green('proyectos inicial al fron end express'));
+		  var proyectoInicial =obj.proyectosIncluidos.proyectoInicial;
+		  var assetsPath=PATH_CORE+proyectoInicial+'/assets';
+		  var assetsProject='/'+proyectoInicial+'/';
+
+		  var routerPath=PATH_CORE+proyectoInicial+'/router/';
+		  var routerProject='/'+proyectoInicial+'/router/';
+
+		  var controllerPath= PATH_CORE+proyectoInicial+'/controller/';
+		  var controllerProject='/'+proyectoInicial+'/controller/';
+
+		  var viewsPath=PATH_CORE+proyectoInicial+'/views/';
+		  var viewsProject='/'+proyectoInicial+'/views/';
+
+		  app.use(assetsProject, 
+		  		express.static(assetsPath));
+		  app.use(routerProject, 
+		  		express.static(routerPath));
+		  app.use(controllerProject, 
+		  		express.static(controllerPath));
+		  app.use(viewsProject, 
+		  		express.static(viewsPath));
+
+		   console.log(
+			    	colors.yellow(assetsPath +'==>'+assetsProject));
+		   console.log(
+			    	colors.yellow(routerPath +'==>'+routerProject));
+		   console.log(
+			    	colors.yellow(controllerPath +'==>'+controllerProject));
+		   console.log(
+			    	colors.yellow(viewsPath +'==>'+viewsProject));
+		   console.log("--------------");
+		   //console.log(app);
+
 		});
 }
 
+
+
+
+//app.use("/",express.static(__dirname+"/packages/core/main/public/"));
+
 // nombre de la carpeta donde se colocarà los archivos
-app.use(express.static(__dirname+"/src"));
+//app.use(express.static(__dirname+"/src"));
+
 
 // agregar paquetes por default al front end
 leerPaquetesFrontEnd();
 
+/*
 app.get('/', function(req, res) {
-    res.sendfile('index.html');
+    res.sendfile('/packages/core/main/public/views/index.html');
 });
+*/
 app.listen(3000, '0.0.0.0');
