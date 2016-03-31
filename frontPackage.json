@@ -10,7 +10,16 @@
         "angular-route": "^1.5.3",
         "jquery": "^2.2.2",
         "raphael": "^2.1.4",
-        "metismenu": "^2.4.3"
+        "metismenu": "^2.4.3",        
+        "animate.css": "0.0.8",
+        "nprogress": "^0.2.0",
+        "bootstrap-progressbar": "^0.9.0",
+        "moment": "^2.12.0",
+        "nicescroll": "git+https://github.com/inuyaksa/jquery.nicescroll.git",
+        "daterangepicker": "0.0.3",
+        "chart.js": "^1.0.2",
+        "icheck": "^1.0.2",
+        "pace":"git+https://github.com/HubSpot/pace.git"
       },
     "proyectosIncluidos":{
         "proyectoInicial":"main"

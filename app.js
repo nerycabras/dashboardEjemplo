@@ -49,7 +49,7 @@ function leerPaquetesFrontEnd(){
 		  var controllerProject='/'+proyectoInicial+'/controller/';
 
 		  var viewsPath=PATH_CORE+proyectoInicial+'/public/views/';
-		  var viewsProject='/'+proyectoInicial+'/views/';
+		  var viewsProject='/'+proyectoInicial+'/';
 
 		  app.use(assetsProject, 
 		  		express.static(assetsPath));
