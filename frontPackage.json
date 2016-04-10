@@ -19,9 +19,28 @@
         "daterangepicker": "0.0.3",
         "chart.js": "^1.0.2",
         "icheck": "^1.0.2",
-        "pace":"git+https://github.com/HubSpot/pace.git"
+        "pace":"git+https://github.com/HubSpot/pace.git",
+        "angular": "^1.5.3",
+        "angular-ui-router": "^1.0.0-alpha.1",
+        "angular-route": "^1.5.3"
       },
     "proyectosIncluidos":{
-        "proyectoInicial":"main"
+        "core":[
+                {
+                    "proyectoNombre":"main",
+                    "tipoProyecto":"privado"
+                }
+            ],
+        "project":[
+                {
+                    "proyectoNombre":"resumen",
+                    "tipoProyecto":"privado"
+                },
+                {
+                    "proyectoNombre":"proyectoPublico",
+                    "tipoProyecto":"publico"
+                }
+                ] 
+
     }
 }

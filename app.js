@@ -2,6 +2,9 @@
 const NOMBRE_RAIZ_FRONT_END = "/component/";
 const NOMBRE_JSON_FRONT_PAQUETES = 'frontPackage.json';
 const PATH_CORE = __dirname+"/packages/core/";
+const PATH_PROJECT = __dirname+"/packages/project/";
+const PATH_WEB_PUBLICO = 'public';
+const PATH_WEB_PRIVATE = 'private';
 
 // simple express server
 var express = require('express');
@@ -13,17 +16,114 @@ var fs = require('fs');
 // colores para console.lod
 var colors = require('colors');
 
+//leer proyectos de core
+function leerProyectosCore(element, index, array) {
+	console.log(colors.yellow("proyecto ==>")+colors.blue(element.proyectoNombre));
+	var proyectoNombre =element.proyectoNombre;
+
+	var esPublicoPrivado=element.tipoProyecto;
+	var cadenaPrivadaPublico='';
+	
+
+	if(esPublicoPrivado=="publico"){
+		cadenaPrivadaPublico='public';
+	}else if(esPublicoPrivado=="privado"){
+		cadenaPrivadaPublico='private';
+	}
+	
+
+
+	var assetsPath=PATH_CORE+proyectoNombre+'/public/assets';
+	var assetsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+
+
+
+
+	var routerPath=PATH_CORE+proyectoNombre+'/public/router/';
+	var routerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/router/';
+
+	var controllerPath= PATH_CORE+proyectoNombre+'/public/controller/';
+	var controllerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/controller/';
+
+	var viewsPath=PATH_CORE+proyectoNombre+'/public/views/';
+	var viewsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+
+	app.use(assetsProject, 
+	express.static(assetsPath));
+	app.use(routerProject, 
+	express.static(routerPath));
+	app.use(controllerProject, 
+	express.static(controllerPath));
+	app.use(viewsProject, 
+	express.static(viewsPath));
+
+	console.log(
+		colors.yellow(assetsPath +'==>'+assetsProject));
+	console.log(
+		colors.yellow(routerPath +'==>'+routerProject));
+	console.log(
+		colors.yellow(controllerPath +'==>'+controllerProject));
+	console.log(
+		colors.yellow(viewsPath +'==>'+viewsProject));
+}
+
+//leer proyectos de project
+function leerProyectosProject(element, index, array) {
+	console.log(colors.yellow("proyecto ==>")+colors.blue(element.proyectoNombre));
+	var proyectoNombre =element.proyectoNombre;
+	var esPublicoPrivado=element.tipoProyecto;
+	var cadenaPrivadaPublico='';
+	if(esPublicoPrivado=="publico"){
+		cadenaPrivadaPublico='public';
+	}else if(esPublicoPrivado=="privado"){
+		cadenaPrivadaPublico='private';
+	}
+
+	var assetsPath=PATH_PROJECT+proyectoNombre+'/public/assets';
+	var assetsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+
+	var routerPath=PATH_PROJECT+proyectoNombre+'/public/router/';
+	var routerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/router/';
+
+	var controllerPath= PATH_PROJECT+proyectoNombre+'/public/controller/';
+	var controllerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/controller/';
+
+	var viewsPath=PATH_PROJECT+proyectoNombre+'/public/views/';
+	var viewsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+
+	app.use(assetsProject, 
+	express.static(assetsPath));
+	app.use(routerProject, 
+	express.static(routerPath));
+	app.use(controllerProject, 
+	express.static(controllerPath));
+	app.use(viewsProject, 
+	express.static(viewsPath));
+
+	console.log(
+		colors.yellow(assetsPath +'==>'+assetsProject));
+	console.log(
+		colors.yellow(routerPath +'==>'+routerProject));
+	console.log(
+		colors.yellow(controllerPath +'==>'+controllerProject));
+	console.log(
+		colors.yellow(viewsPath +'==>'+viewsProject));
+}
+
+
+
+
 
 
 // funcion para leer los paquetes del node_modules y ponerlos automàtiamente
 // como paquetes que puedan ser utilizados por el front-end
 function leerPaquetesFrontEnd(){
-	
 	var obj;
 	fs.readFile(NOMBRE_JSON_FRONT_PAQUETES, 'utf8', function (err, data) {
 		  if (err) throw err;
 		  obj = JSON.parse(data);
 		  // leer los nombre de los paquetes y buscar carpetas
+		  
 		  console.log(colors.green('Paquetes node_modules agregados al fron end express'));
 		  for(var name in obj.frontDependencies) {
 		  	app.use(NOMBRE_RAIZ_FRONT_END+name, 
@@ -34,45 +134,14 @@ function leerPaquetesFrontEnd(){
 			    	NOMBRE_RAIZ_FRONT_END+name
 			    	));
 			}
-
 		  //leer proyecto inicial y hacerlos pùblicos
 		  console.log(colors.green('proyectos inicial al fron end express'));
-		  var proyectoInicial =obj.proyectosIncluidos.proyectoInicial
-
-		  var assetsPath=PATH_CORE+proyectoInicial+'/public/assets';
-		  var assetsProject='/'+proyectoInicial+'/';
-
-		  var routerPath=PATH_CORE+proyectoInicial+'/public/router/';
-		  var routerProject='/'+proyectoInicial+'/router/';
-
-		  var controllerPath= PATH_CORE+proyectoInicial+'/public/controller/';
-		  var controllerProject='/'+proyectoInicial+'/controller/';
-
-		  var viewsPath=PATH_CORE+proyectoInicial+'/public/views/';
-		  var viewsProject='/'+proyectoInicial+'/';
-
-		  app.use(assetsProject, 
-		  		express.static(assetsPath));
-		  app.use(routerProject, 
-		  		express.static(routerPath));
-		  app.use(controllerProject, 
-		  		express.static(controllerPath));
-		  app.use(viewsProject, 
-		  		express.static(viewsPath));
-
-		   console.log(
-			    	colors.yellow(assetsPath +'==>'+assetsProject));
-		   console.log(
-			    	colors.yellow(routerPath +'==>'+routerProject));
-		   console.log(
-			    	colors.yellow(controllerPath +'==>'+controllerProject));
-		   console.log(
-			    	colors.yellow(viewsPath +'==>'+viewsProject));
-		   app.use("/inicio/", 
-		  		express.static(__dirname+"/src/"));
+		  var proyectosCore =obj.proyectosIncluidos.core
+		  proyectosCore.forEach(leerProyectosCore);
+		  var proyectosProject =obj.proyectosIncluidos.project
+		  proyectosProject.forEach(leerProyectosProject);
 		});
 }
-
 leerPaquetesFrontEnd();
 
 

@@ -1,9 +1,13 @@
-angular.module('mainModule',[]).config(['$stateProvider', '$urlRouterProvider',function(
+var a=angular.module('mainModule',['ui.router','resumenModule']);
+a.config(['$stateProvider', '$urlRouterProvider',function(
 	$stateProvider, $urlRouterProvider) {
 	$stateProvider
-            .state("main", {
-                url: "/",
-                templateUrl: '../assets/index.html',
-                controller: 'mainController'
-            });
+        .state('basquet', {
+            url: "/private/main/basquet",
+          	templateUrl:'basquet.html'
+        })
+        .state('fut', {
+            url: "/private/main/fut",
+            templateUrl:"futbol.html"
+        })
 }])

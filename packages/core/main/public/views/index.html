@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mainModule">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Gentallela Alela! | </title>
+  <title>Liga:Huajuapan</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -18,14 +18,21 @@
   <link href="/component/animate.css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="/main/css/custom.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/main/css/jquery-jvectormap-2.0.3.css" />
-  <link href="/main/css/icheck/flat/green.css" rel="stylesheet" />
-  <link href="/main/css/floatexamples.css" rel="stylesheet" type="text/css" />
+  <link href="/private/main/css/custom.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/private/main/css/jquery-jvectormap-2.0.3.css" />
+  <link href="/private/main/css/icheck/flat/green.css" rel="stylesheet" />
+  <link href="/private/main/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
   <script src="/component/jquery/dist/jquery.min.js"></script>
   <script src="/component/nprogress/nprogress.js"></script>
-
+  
+  <script src="/component/angular/angular.js"></script>  
+  <script src="/component/angular-route/angular-route.js"></script>  
+  <script src="/component/angular-ui-router/release/angular-ui-router.js"></script>  
+  <!-- proyectos-->
+  <script src="/private/resumen/router/resumenRouter.js"></script>
+  <script src="/private/main/router/mainRouter.js"></script>  
+  
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -50,7 +57,7 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Liga:Huajuapan</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -70,21 +77,15 @@
 
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="index.html">Dashboard</a>
-                    </li>
-                    <li><a href="index2.html">Dashboard2</a>
-                    </li>
-                    <li><a href="index3.html">Dashboard3</a>
-                    </li>
-                  </ul>
+                <li ui-sref="fut"><a><i class="fa fa-home"></i>Ligas </a>
                 </li>
-                
+                <li ui-sref="basquet"><a><i class="fa fa-edit">Equipos</i> </a>
+                </li>
+                 <li ui-sref="resumen1"><a><i class="fa fa-home">Resumen</i> </a>
+                </li>                 
               </ul>
             </div>
           </div>
@@ -223,12 +224,9 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-
-        
-        <!-- /footer content -->
-      </div>
-      <!-- /page content -->
-
+       <!-- <div ui-view="mainViewTop"></div>
+        </div> -->
+        <div ui-view></div>
     </div>
 
   </div>
@@ -247,8 +245,11 @@
   <script src="/component/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
   <script src="/component/nicescroll/jquery.nicescroll.min.js"></script>
 
+  <!-- Angular js -->
 
-  <script src="/main/js/custom.js"></script>
+
+
+  <script src="/private/main/js/custom.js"></script>
 
 
  
