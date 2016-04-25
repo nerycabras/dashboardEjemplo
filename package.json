@@ -9,12 +9,15 @@
     "angular-ui-router": "^1.0.0-alpha.1",
     "animate": "0.0.5",
     "animate.css-js": "0.0.8",
+    "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
     "bootstrap-progressbar": "^0.9.0",
     "browser-sync": "^2.11.2",
     "chart.js": "^1.0.2",
     "daterangepicker": "0.0.3",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "express-validator": "^2.20.3",
     "font-awesome": "^4.5.0",
     "fs": "0.0.2",
     "gauge": "^1.2.7",
@@ -34,10 +37,12 @@
     "jshint": "^2.9.1",
     "metismenu": "^2.4.3",
     "moment": "^2.12.0",
+    "morgan": "^1.7.0",
     "ng-morris-js": "^0.3.4",
     "nicescroll": "git+https://github.com/inuyaksa/jquery.nicescroll.git",
     "nprogress": "^0.2.0",
     "pace": "git+https://github.com/HubSpot/pace.git",
-    "raphael": "^2.1.4"
+    "raphael": "^2.1.4",
+    "session-file-store": "^0.2.0"
   }
 }

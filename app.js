@@ -16,6 +16,18 @@ var fs = require('fs');
 // colores para console.lod
 var colors = require('colors');
 
+var bodyParser  = require('body-parser');
+//console morgan
+var morgan  = require('morgan');
+//validator
+
+var validator = require('express-validator');
+
+// express session
+var session = require('express-session');
+
+var FileStore = require('session-file-store')(session);
+
 //leer proyectos de core
 function leerProyectosCore(element, index, array) {
 	console.log(colors.yellow("proyecto ==>")+colors.blue(element.proyectoNombre));
@@ -142,7 +154,29 @@ function leerPaquetesFrontEnd(){
 		  proyectosProject.forEach(leerProyectosProject);
 		});
 }
+//config body parser
+
 leerPaquetesFrontEnd();
+
+//config morgan
+app.use (morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
+
+//config express session
+
+app.use(session({
+  secret: 'max',
+  saveUninitialized: false,
+  resave: false
+}));
+
+app.use(function printSession(req, res, next) {
+  console.log('req.session', req.session);
+  return next();
+});
+
 
 
 
@@ -155,9 +189,8 @@ leerPaquetesFrontEnd();
 // agregar paquetes por default al front end
 //leerPaquetesFrontEnd();
 
-/*
-app.get('/', function(req, res) {
-    res.sendfile('/packages/core/main/public/views/index.html');
-});
-*/
+
+/*app.get('/', function(req, res) {
+});*/
+
 app.listen(3000, '0.0.0.0');
