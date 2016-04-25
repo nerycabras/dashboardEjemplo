@@ -28,7 +28,7 @@ var session = require('express-session');
 
 var FileStore = require('session-file-store')(session);
 
-//leer proyectos de core
+	//leer proyectos de core
 function leerProyectosCore(element, index, array) {
 	console.log(colors.yellow("proyecto ==>")+colors.blue(element.proyectoNombre));
 	var proyectoNombre =element.proyectoNombre;

@@ -20,10 +20,8 @@
         "chart.js": "^1.0.2",
         "icheck": "^1.0.2",
         "pace":"git+https://github.com/HubSpot/pace.git",
-        "angular": "^1.5.3",
-        "angular-ui-router": "^1.0.0-alpha.1",
-        "angular-route": "^1.5.3"
-      },
+        "angular-ui-router": "^1.0.0-alpha.1"      
+        },
     "proyectosIncluidos":{
         "core":[
                 {

@@ -4,7 +4,7 @@ a.config(['$stateProvider', '$urlRouterProvider',function(
 	$stateProvider
         .state('resumen1', {
             url: "/private/resumen/",
-          	templateUrl:'/resumen/index.html'
+          	templateUrl:'/private/resumen/index.html'
         })
         .state('resumen2', {
             url: "/private/resumen/general",
