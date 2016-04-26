@@ -3,6 +3,8 @@ const NOMBRE_RAIZ_FRONT_END = "/component/";
 const NOMBRE_JSON_FRONT_PAQUETES = 'frontPackage.json';
 const PATH_CORE = __dirname+"/packages/core/";
 const PATH_PROJECT = __dirname+"/packages/project/";
+const PATH_SERVER_ROUTER_PRIVATE ="/packages/core/";
+const PATH_SERVER_ROUTER_PUBLIC = "/packages/project/";
 const PATH_WEB_PUBLICO = 'public';
 const PATH_WEB_PRIVATE = 'private';
 
@@ -27,6 +29,9 @@ var validator = require('express-validator');
 var session = require('express-session');
 
 var FileStore = require('session-file-store')(session);
+
+var proyectosCore=[];
+var proyectosProject=[];
 
 	//leer proyectos de core
 function leerProyectosCore(element, index, array) {
@@ -148,15 +153,19 @@ function leerPaquetesFrontEnd(){
 			}
 		  //leer proyecto inicial y hacerlos pùblicos
 		  console.log(colors.green('proyectos inicial al fron end express'));
-		  var proyectosCore =obj.proyectosIncluidos.core
+		  proyectosCore =obj.proyectosIncluidos.core
 		  proyectosCore.forEach(leerProyectosCore);
-		  var proyectosProject =obj.proyectosIncluidos.project
+		  proyectosProject =obj.proyectosIncluidos.project
 		  proyectosProject.forEach(leerProyectosProject);
+		  
+		  app.use('/webapi/',
+		  	require('./indexRouter')
+		  	(proyectosCore,proyectosProject,PATH_SERVER_ROUTER_PRIVATE,PATH_SERVER_ROUTER_PUBLIC));
 		});
 }
 //config body parser
 
-leerPaquetesFrontEnd();
+
 
 //config morgan
 app.use (morgan('dev'));
@@ -176,7 +185,7 @@ app.use(function printSession(req, res, next) {
   console.log('req.session', req.session);
   return next();
 });
-
+leerPaquetesFrontEnd();
 
 
 
@@ -189,8 +198,9 @@ app.use(function printSession(req, res, next) {
 // agregar paquetes por default al front end
 //leerPaquetesFrontEnd();
 
-
-/*app.get('/', function(req, res) {
+/*
+app.get('/webbb', function(req, res) {
+	res.send('jojojo');
 });*/
 
 app.listen(3000, '0.0.0.0');
