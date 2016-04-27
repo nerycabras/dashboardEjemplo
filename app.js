@@ -28,7 +28,14 @@ var validator = require('express-validator');
 // express session
 var session = require('express-session');
 
-var FileStore = require('session-file-store')(session);
+var cookieParser = require('cookie-parser');
+
+var mongoose = require('mongoose');
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+
+var MongoStore = require('connect-mongo')(session);
+
 
 var proyectosCore=[];
 var proyectosProject=[];
@@ -158,6 +165,7 @@ function leerPaquetesFrontEnd(){
 		  proyectosProject =obj.proyectosIncluidos.project
 		  proyectosProject.forEach(leerProyectosProject);
 		  
+		  // procesamiento de las rutas express
 		  app.use('/webapi/',
 		  	require('./indexRouter')
 		  	(proyectosCore,proyectosProject,PATH_SERVER_ROUTER_PRIVATE,PATH_SERVER_ROUTER_PUBLIC));
@@ -171,36 +179,54 @@ function leerPaquetesFrontEnd(){
 app.use (morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(validator());
+app.use(bodyParser());
+app.use(cookieParser());
+
+
+
+//app.use(validator());
 
 //config express session
 
-app.use(session({
-  secret: 'max',
-  saveUninitialized: false,
-  resave: false
+/*app.use(session({
+    cookie: { maxAge: 1000*60*2 } ,
+    secret: "session secret" ,
+    store:new MongoStore({
+            db: 'dashboard',
+            host: '127.0.0.1',
+            port: 27017,   
+            collection: 'session', 
+            auto_reconnect:true
+    })
 }));
+
+*/
+// configuracion de session
+app.use(session({
+			cookie: { maxAge: 1000*60*2 } ,
+			secret: "session secret" ,
+			store: new MongoStore({ 
+				mongooseConnection: mongoose.connection,
+				ttl: 2 * 24 * 60 * 60 
+			})
+		}));
 
 app.use(function printSession(req, res, next) {
   console.log('req.session', req.session);
   return next();
 });
+
+
+// session example
+function sessionValidacion(req, res, next) {
+  if (req.user === 'farmer') {
+   next()
+  } else {
+    res.status(403).send('Forbidden')
+  }
+}
 leerPaquetesFrontEnd();
 
 
-
-//app.use("/",express.static(__dirname+"/packages/core/main/public/"));
-
-// nombre de la carpeta donde se colocarà los archivos
-//app.use(express.static(__dirname+"/src"));
-
-
-// agregar paquetes por default al front end
-//leerPaquetesFrontEnd();
-
-/*
-app.get('/webbb', function(req, res) {
-	res.send('jojojo');
-});*/
 
 app.listen(3000, '0.0.0.0');
