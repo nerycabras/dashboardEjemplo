@@ -5,13 +5,11 @@ var router = express.Router();
 
 // POST /signup
 router.post('/login', function (req, res) {
-    res.send('Audi, BMW, Mercedes');
+    console.log('Entro login');
+    res.send('correcto');
+    
 });
 
-// GET /signup/info
-router.get('/logout', function (req, res) {
-     res.send('Audi, BMW, Mercedes');
-});
 
 
 module.exports = router;

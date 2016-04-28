@@ -1,18 +1,27 @@
 
-angular.module('proyectoPublico').controller('alertaController', ['$scope', function($scope){
+angular.module('proyectoPublico').controller('loginController', ['$scope','$http', function($scope,$http){
 
-	 $scope.alerts = [
-    { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-    { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-  ];
-
-  $scope.addAlert = function() {
-    $scope.alerts.push({msg: 'Another alert!'});
-  };
-
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
-  };
+	 $scope.user = {};
+      // calling our submit function.
+        $scope.submitForm = function() {
+        // Posting data to php file
+        $http({
+          method  : 'POST',
+          url     : '/webapi/proyectoPublico/login',
+          data    : $scope.user, //forms user object
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+         })
+          .success(function(data) {
+            if (data.errors) {
+              // Showing errors.
+              $scope.errorName = data.errors.name;
+              $scope.errorUserName = data.errors.username;
+              $scope.errorEmail = data.errors.email;
+            } else {
+              $scope.message = data.message;
+            }
+          });
+        };
 
 }]);
 
