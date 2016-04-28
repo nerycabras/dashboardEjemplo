@@ -1,4 +1,5 @@
-var a=angular.module('resumenModule',['ui.router']);
+
+var a=angular.module('resumenModule',[]);
 a.config(['$stateProvider', '$urlRouterProvider',function(
 	$stateProvider, $urlRouterProvider) {
 	$stateProvider

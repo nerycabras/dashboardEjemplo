@@ -1,6 +1,5 @@
 
-
-angular.module('mainModule').controller('alertaController', ['$scope', function($scope){
+angular.module('proyectoPublico').controller('alertaController', ['$scope', function($scope){
 
 	 $scope.alerts = [
     { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },

@@ -1,5 +1,6 @@
-var a=angular.module('mainModule',['ui.router','resumenModule']);
-a.config(['$stateProvider', '$urlRouterProvider',function(
+
+angular.module('mainModule',['ui.router','resumenModule','ui.bootstrap']);
+angular.module('mainModule').config(['$stateProvider', '$urlRouterProvider',function(
 	$stateProvider, $urlRouterProvider) {
 	$stateProvider
         .state('basquet', {
