@@ -6,8 +6,7 @@ var router = express.Router();
 // POST /signup
 router.post('/login', function (req, res) {
     console.log('Entro login');
-    res.send('correcto');
-    
+    res.send('correcto');   
 });
 
 
