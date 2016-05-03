@@ -168,7 +168,7 @@ function leerPaquetesFrontEnd(){
 		  // procesamiento de las rutas express
 		  app.use('/webapi/',
 		  	require('./indexRouter')
-		  	(proyectosCore,proyectosProject,PATH_SERVER_ROUTER_PRIVATE,PATH_SERVER_ROUTER_PUBLIC));
+		  	(proyectosCore,proyectosProject,PATH_SERVER_ROUTER_PRIVATE,PATH_SERVER_ROUTER_PUBLIC,mongoose));
 		});
 }
 //config body parser
@@ -194,7 +194,7 @@ app.use(cookieParser());
     store:new MongoStore({
             db: 'dashboard',
             host: '127.0.0.1',
-            port: 27017,   	
+            port: 27017,   
             collection: 'session', 
             auto_reconnect:true
     })

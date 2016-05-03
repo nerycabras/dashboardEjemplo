@@ -9,7 +9,7 @@ module.exports = router
 
 */
 
-module.exports= function(direccionesRouterCore,direccionesRouterProject, rutaCore, rutaProject){
+module.exports= function(direccionesRouterCore,direccionesRouterProject, rutaCore, rutaProject,mongoose){
   var express = require('express');
   var router = express.Router();
   var colors = require('colors'); 
@@ -20,8 +20,9 @@ module.exports= function(direccionesRouterCore,direccionesRouterProject, rutaCor
       var rutaNombre='/'+proyectoNombre+'/';
 	  var esPublicoPrivado=element.tipoProyecto;
       var rutaCompleta='.'+rutaCore+proyectoNombre+'/server/router/'+proyectoNombre;
-      console.log(colors.blue(rutaNombre)+"---->"+colors.magenta( rutaCompleta));
+      
 	  router.use(rutaNombre, require(rutaCompleta));
+    console.log(colors.blue(rutaNombre)+"---->"+colors.magenta( rutaCompleta));
   }
   
   
@@ -29,10 +30,13 @@ module.exports= function(direccionesRouterCore,direccionesRouterProject, rutaCor
   function forElementProject(element, index, array) {
       var proyectoNombre =element.proyectoNombre;
       var rutaNombre='/'+proyectoNombre+'/';
-	  var esPublicoPrivado=element.tipoProyecto;
+	    var esPublicoPrivado=element.tipoProyecto;
       var rutaCompleta='.'+rutaProject+proyectoNombre+'/server/router/'+proyectoNombre;
       console.log(colors.blue(rutaNombre)+"---->"+colors.magenta( rutaCompleta));
-	  router.use(rutaNombre, require(rutaCompleta));
+      console.log("ñññññññññññññññ"); 
+      //console.log(mongoose);
+	   router.use(rutaNombre, require(rutaCompleta)(mongoose));
+    
   }
  
   //router.use('/main/', require('./main'));
@@ -40,6 +44,8 @@ module.exports= function(direccionesRouterCore,direccionesRouterProject, rutaCor
   console.log(colors.magenta( '-------------- WEB API -------------'));
   console.log(colors.magenta( '----------***************-----------'));
   //direccionesRouterCore.forEach(forElement);
+  
+  
   direccionesRouterCore.forEach(forElementCore);
   direccionesRouterProject.forEach(forElementProject);
   //router.use('/main/', require('./packages/core/main/server/router/main'));
