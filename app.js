@@ -36,6 +36,8 @@ mongoose.connect(configDB.url);
 
 var MongoStore = require('connect-mongo')(session);
 
+var mailer = require('express-mailer');
+
 
 var proyectosCore=[];
 var proyectosProject=[];
@@ -171,7 +173,19 @@ function leerPaquetesFrontEnd(){
 		  	(proyectosCore,proyectosProject,PATH_SERVER_ROUTER_PRIVATE,PATH_SERVER_ROUTER_PUBLIC,mongoose));
 		});
 }
-//config body parser
+
+
+mailer.extend(app, {
+  from: 'nery.210689@gmail.com',
+  host: 'smtp.gmail.com', // hostname
+  secureConnection: true, // use SSL
+  port: 465, // port for secure SMTP
+  transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+  auth: {
+    user: 'nerycabras',
+    pass: 'avvae3e4'
+  }
+});
 
 
 

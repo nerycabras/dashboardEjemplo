@@ -6,4 +6,8 @@ angular.module('proyectoPublico').config(['$stateProvider', '$urlRouterProvider'
             url: "/",
           	templateUrl:'login.html'
         })
+        .state('crearUsuario', {
+            url: "/crearUsuario",
+          	templateUrl:'usuarioCreate.html'
+        })
 }])

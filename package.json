@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.1",
     "daterangepicker": "0.0.3",
     "express": "^4.13.4",
+    "express-mailer": "^0.3.0",
     "express-session": "^1.13.0",
     "express-validator": "^2.20.3",
     "font-awesome": "^4.5.0",
