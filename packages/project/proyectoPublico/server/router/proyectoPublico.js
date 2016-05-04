@@ -3,20 +3,19 @@ module.exports = function (mongoose){
     var express = require('express');
     var router = express.Router();
     var models = require('../model/userModel')(mongoose);
-    var Usuario=models.Usuario({ nombre: 'nery', contrasenia: 'nerypass' });
-    console.log('---------------');
     router.post('/login', function (req, res) {
-       Usuario.save(function(err, user_Saved){
+    var Usuario=models.Usuario(req.body);
+    console.log(req.body.nombre);
+    Usuario.save(function(err, user_Saved){
             if(err){
-                throw err;
                 console.log(err);
+                throw err;
             }else{
                 console.log('saved!');
             }
         });
-        console.log('Entro login');
-        
-        res.send();
+     console.log('Entro login');   
+     res.send();
     });
     return router;    
 };

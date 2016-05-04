@@ -1,7 +1,7 @@
 
 angular.module('proyectoPublico').controller('loginController', ['$scope','$http', function($scope,$http){
 
-	 $scope.user = {};
+	 $scope.user = {nombre:'nery',correo:'nery@gmail.com'};
       // calling our submit function.
         $scope.submitForm = function() {
         // Posting data to php file
@@ -9,7 +9,7 @@ angular.module('proyectoPublico').controller('loginController', ['$scope','$http
           method  : 'POST',
           url     : '/webapi/proyectoPublico/login',
           data    : $scope.user, //forms user object
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+          headers : { 'Content-Type': 'application/json' } 
          })
           .success(function(data) {
             if (data.errors) {

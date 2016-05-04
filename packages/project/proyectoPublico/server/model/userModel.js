@@ -2,7 +2,8 @@ module.exports = function(mongoose) {
     var Schema = mongoose.Schema;
     var Usuario = new Schema({
         nombre               :    {type: String, index: true},
-        contrasenia          :    {type: String}
+        contrasenia          :    {type: String},
+        correo          :    {type: String}
     });
     
     var Torneo = new Schema({
