@@ -5,18 +5,8 @@ module.exports = function (mongoose) {
     var models = require('../model/userModel')(mongoose);
     var Usuario = models.Usuario;
     router.get('/login', function (req, res) {
-        var Usuario = models.Usuario(req.body);
-        console.log(req.body.nombre);
-        Usuario.save(function (err, user_Saved) {
-            if (err) {
-                console.log(err);
-                throw err;
-            } else {
-                console.log('saved!');
-            }
-        });
-        console.log('Entro login');
-        res.send();
+        console.log("GET GET LOGIN------>");
+        res.send("retorno");
     });
 
     router.post('/login', function (req, res) {

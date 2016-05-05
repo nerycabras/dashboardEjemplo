@@ -62,9 +62,6 @@ function leerProyectosCore(element, index, array) {
 	var assetsPath=PATH_CORE+proyectoNombre+'/public/assets';
 	var assetsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
 
-
-
-
 	var routerPath=PATH_CORE+proyectoNombre+'/public/router/';
 	var routerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/router/';
 
@@ -73,6 +70,9 @@ function leerProyectosCore(element, index, array) {
 
 	var viewsPath=PATH_CORE+proyectoNombre+'/public/views/';
 	var viewsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+	
+	var servicePath=PATH_CORE+proyectoNombre+'/public/service/';
+	var serviceProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/service/';
 
 	app.use(assetsProject, 
 	express.static(assetsPath));
@@ -80,8 +80,12 @@ function leerProyectosCore(element, index, array) {
 	express.static(routerPath));
 	app.use(controllerProject, 
 	express.static(controllerPath));
+	app.use(serviceProject, 
+	express.static(servicePath));
 	app.use(viewsProject, 
 	express.static(viewsPath));
+	
+	
 
 	console.log(
 		colors.yellow(assetsPath +'==>'+assetsProject));
@@ -91,6 +95,8 @@ function leerProyectosCore(element, index, array) {
 		colors.yellow(controllerPath +'==>'+controllerProject));
 	console.log(
 		colors.yellow(viewsPath +'==>'+viewsProject));
+	console.log(
+		colors.yellow(servicePath +'==>'+serviceProject));
 }
 
 //leer proyectos de project
@@ -106,7 +112,7 @@ function leerProyectosProject(element, index, array) {
 	}
 
 	var assetsPath=PATH_PROJECT+proyectoNombre+'/public/assets';
-	var assetsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
+	var assetsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/assets';
 
 	var routerPath=PATH_PROJECT+proyectoNombre+'/public/router/';
 	var routerProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/router/';
@@ -117,12 +123,20 @@ function leerProyectosProject(element, index, array) {
 	var viewsPath=PATH_PROJECT+proyectoNombre+'/public/views/';
 	var viewsProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/';
 
+	var servicePath=PATH_PROJECT+proyectoNombre+'/public/service/';
+	var serviceProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/service/';
+
 	app.use(assetsProject, 
 	express.static(assetsPath));
+	
 	app.use(routerProject, 
 	express.static(routerPath));
+	
 	app.use(controllerProject, 
 	express.static(controllerPath));
+	
+	app.use(serviceProject, 
+	express.static(servicePath));
 	app.use(viewsProject, 
 	express.static(viewsPath));
 
@@ -134,6 +148,8 @@ function leerProyectosProject(element, index, array) {
 		colors.yellow(controllerPath +'==>'+controllerProject));
 	console.log(
 		colors.yellow(viewsPath +'==>'+viewsProject));
+	console.log(
+		colors.yellow(servicePath +'==>'+serviceProject));
 }
 
 

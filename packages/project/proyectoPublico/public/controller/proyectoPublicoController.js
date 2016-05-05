@@ -1,51 +1,39 @@
 
-angular.module('proyectoPublico').controller('loginController', ['$scope','$http', function($scope,$http){
-      // calling our submit function.
-        $scope.user = {};
-        $scope.submitForm = function() {
-        // Posting data to php file
-        $http({
-          method  : 'GET',
-          url     : '/webapi/proyectoPublico/login',
-          data    : $scope.user, //forms user object
-          headers : { 'Content-Type': 'application/json' } 
-         })
-          .success(function(data) {
-            if (data.errors) {
-              // Showing errors.
-              $scope.errorName = data.errors.name;
-              $scope.errorUserName = data.errors.username;
-              $scope.errorEmail = data.errors.email;
-            } else {
-              $scope.message = data.message;
-            }
-          });
-        };
+angular.module('proyectoPublico').controller('loginController', ['$scope', '$http', '$q', 'callAsyncHttpService', function ($scope, $http, $q, callAsyncHttpService) {
+  // calling our submit function.
+  $scope.user = {};
+  $scope.submitForm = function () {
+    callAsyncHttpService.async('GET', '/webapi/proyectoPublico/login', $scope.user)
+      .then(
+      function (result) {
+        var retorno = callAsyncHttpService.obtenerDatos();
+        console.log(retorno);
+      },
+      function (error) {
+        // handle errors here
+        console.log(error);
+      }
+      );
+  };
 
-}]).controller('altaUsuarioController', ['$scope','$http', function($scope,$http){
+}]).controller('altaUsuarioController', ['$scope', '$http', '$q', 'callAsyncHttpService',function ($scope, $http,  $q, callAsyncHttpService) {
 
-	 $scope.user = {};
-      // calling our submit function.
-        $scope.submitForm = function() {
-        // Posting data to php file
-        $http({
-          method  : 'POST',
-          url     : '/webapi/proyectoPublico/login',
-          data    : $scope.user, //forms user object
-          headers : { 'Content-Type': 'application/json' } 
-         })
-          .success(function(data) {
-            $scope.errorUsuario=null;
-            if (data.error) {
-              console.log("errror--->");
-              console.log(data.error);
-              // Showing errors.
-              $scope.errorUsuario = data.error;
-            } else {
-              $scope.message = data.message;
-            }
-          });
-        };
+  $scope.user = {};
+  // calling our submit function.
+  $scope.submitForm = function () {
+    callAsyncHttpService.async('POST', '/webapi/proyectoPublico/login', $scope.user)
+      .then(
+      function (result) {
+        var retorno = callAsyncHttpService.obtenerDatos();
+        console.log(retorno);
+      },
+      function (error) {
+        // handle errors here
+        console.log(error);
+      });
+
+
+  };
 
 }]);
 
