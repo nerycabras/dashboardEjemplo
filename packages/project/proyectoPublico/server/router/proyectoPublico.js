@@ -4,12 +4,15 @@ module.exports = function (mongoose) {
     var router = express.Router();
     var models = require('../model/userModel')(mongoose);
     var Usuario = models.Usuario;
-    router.get('/login', function (req, res) {
-        console.log("GET GET LOGIN------>");
-        res.send("retorno");
+    
+    
+    
+    router.get('/security', function (req, res) {
+        console.log(req.session);
+        res.send("true");
     });
 
-    router.post('/login', function (req, res) {
+    router.post('/altaUsuario', function (req, res) {
 
         var usuarioCrear = new Usuario(req.body);
         //buscar si existe el usuario
@@ -35,5 +38,34 @@ module.exports = function (mongoose) {
         })
 
     });
+    
+    router.post('/login', function (req, res) {
+        var ses= req.body;
+        var usuarioCrear = new Usuario(req.body);
+        //buscar si existe el usuario
+        Usuario.findOne({ 'usuario': usuarioCrear.usuario ,'contrasenia':usuarioCrear.contrasenia}, 'nombre', function (err, usuarioBusqueda) {
+            if (err) return handleError(err);
+            if (usuarioBusqueda != null) {
+               console.log("--------------------__>");
+               console.log("Siiiii");
+               
+               
+               req.session.logged=true;
+               res.send("si");
+            }else{
+                console.log("--------------------__>");
+                console.log("No");
+               req.session.logged=false;
+               res.send("no");
+            }
+            
+        })
+        
+    });
+    
     return router;
 };
+
+
+
+

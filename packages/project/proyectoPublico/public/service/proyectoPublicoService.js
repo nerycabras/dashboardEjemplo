@@ -5,6 +5,8 @@ angular.module('proyectoPublico').factory('callAsyncHttpService', function ($htt
 
     
     servicioActual.async = function (tipoPeticion,urlWebApi,datosPeticion) {
+        console.log("datos enviar------------------->");
+        console.log(datosPeticion);
         return $http({
             method: tipoPeticion,
             url: urlWebApi,

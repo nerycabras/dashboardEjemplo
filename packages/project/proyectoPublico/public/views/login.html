@@ -6,13 +6,13 @@
 	   <form name="userForm" ng-submit="submitForm()">
         <div class="form-group">
             <label>Username</label>
-            <input type="text" name="username" class="form-control" ng-model="user.nombre">
+            <input type="text" name="username" class="form-control" ng-model="user.usuario">
             <span ng-show="errorUserName">{{errorUserName}}</span>
         </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="email" class="form-control" ng-model="user.correo">
-            <span ng-show="errorEmail">{{errorEmail}}</span>
+            <input type="password" name="password" class="form-control" ng-model="user.contrasenia">
+            <span ng-show="errorPassword">{{errorPassword}}</span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
