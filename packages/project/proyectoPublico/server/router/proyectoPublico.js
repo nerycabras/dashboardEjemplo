@@ -8,8 +8,12 @@ module.exports = function (mongoose) {
     
     
     router.get('/security', function (req, res) {
-        console.log(req.session);
-        res.send("true");
+        if(!req.session.logged){
+            req.session.logged=false;
+             req.session.usuario={};
+        }
+        res.json({ logged: req.session.logged ,usuario: req.session.usuario})
+        return;
     });
 
     router.post('/altaUsuario', function (req, res) {
@@ -46,20 +50,21 @@ module.exports = function (mongoose) {
         Usuario.findOne({ 'usuario': usuarioCrear.usuario ,'contrasenia':usuarioCrear.contrasenia}, 'nombre', function (err, usuarioBusqueda) {
             if (err) return handleError(err);
             if (usuarioBusqueda != null) {
-               console.log("--------------------__>");
-               console.log("Siiiii");
-               
-               
                req.session.logged=true;
+               req.session.usuario={nombre:usuarioBusqueda.nombre}
                res.send("si");
             }else{
-                console.log("--------------------__>");
-                console.log("No");
                req.session.logged=false;
-               res.send("no");
+               res.send("si"); 
             }
             
         })
+        
+    });
+    
+    router.post('/logout', function (req, res) {
+        req.session.logged=false;
+        res.send();
         
     });
     
