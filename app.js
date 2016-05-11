@@ -73,6 +73,9 @@ function leerProyectosCore(element, index, array) {
 	
 	var servicePath=PATH_CORE+proyectoNombre+'/public/service/';
 	var serviceProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/service/';
+	
+	var modulePath=PATH_CORE+proyectoNombre+'/public/module/';
+	var moduleProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/module/';
 
 	app.use(assetsProject, 
 	express.static(assetsPath));
@@ -82,6 +85,10 @@ function leerProyectosCore(element, index, array) {
 	express.static(controllerPath));
 	app.use(serviceProject, 
 	express.static(servicePath));
+	
+	app.use(moduleProject, 
+	express.static(modulePath));
+	
 	app.use(viewsProject, 
 	express.static(viewsPath));
 	
@@ -125,6 +132,10 @@ function leerProyectosProject(element, index, array) {
 
 	var servicePath=PATH_PROJECT+proyectoNombre+'/public/service/';
 	var serviceProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/service/';
+	
+	var modulePath=PATH_PROJECT+proyectoNombre+'/public/module/';
+	var moduleProject='/'+cadenaPrivadaPublico+'/'+proyectoNombre+'/module/';
+	
 
 	app.use(assetsProject, 
 	express.static(assetsPath));
@@ -137,6 +148,10 @@ function leerProyectosProject(element, index, array) {
 	
 	app.use(serviceProject, 
 	express.static(servicePath));
+	
+	app.use(moduleProject, 
+	express.static(modulePath));
+	
 	app.use(viewsProject, 
 	express.static(viewsPath));
 

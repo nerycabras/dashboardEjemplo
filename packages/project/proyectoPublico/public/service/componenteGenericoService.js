@@ -1,4 +1,4 @@
-angular.module('proyectoPublico').factory('callAsyncHttpService', function ($http, $q) {
+angular.module('componenteGenericoModulo').factory('callAsyncHttpService', function ($http, $q) {
     var deffered = $q.defer();
     var datosRetorno = {};  
     var servicioActual = {};

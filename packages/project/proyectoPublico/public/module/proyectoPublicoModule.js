@@ -1,0 +1,1 @@
+angular.module('proyectoPublico',['ui.router','ui.bootstrap','componenteGenericoModulo']);
