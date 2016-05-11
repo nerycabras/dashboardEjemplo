@@ -1,9 +1,9 @@
-<div class="col-md-6 col-md-offset-3 "  ng-controller="loginController">
-  
- <div class="page-header">
-  <h2>Login </h2>
-</div>
-	   <form name="userForm" ng-submit="submitForm()">
+<div class="col-md-6 col-md-offset-3 " ng-controller="loginController">
+    
+    <div class="page-header">
+        <h2>Login </h2>
+    </div>
+    <form name="userForm" ng-submit="submitForm()">
         <div class="form-group">
             <label>Username</label>
             <input type="text" name="username" class="form-control" ng-model="user.usuario">
@@ -14,6 +14,6 @@
             <input type="password" name="password" class="form-control" ng-model="user.contrasenia">
             <span ng-show="errorPassword">{{errorPassword}}</span>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" >Submit</button>
     </form>
 </div>

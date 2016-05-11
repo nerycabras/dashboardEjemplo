@@ -1,27 +1,25 @@
 
 angular.module('proyectoPublico').
-  controller('loginController', ['$scope', '$http', '$q', 'callAsyncHttpService', '$window', function ($scope, $http, $q, callAsyncHttpService, $window) {
-    // calling our submit function.
+  controller('loginController', ['$scope', 'callAsyncHttpService', '$window', '$uibModal', '$log', function ($scope, callAsyncHttpService, $window, $uibModal, $log) {
     $scope.user = {};
-    $scope.submitForm = function () {
-      callAsyncHttpService.async('POST', '/webapi/proyectoPublico/login', $scope.user)
-        .then(
-        function (result) {
-          var retorno = callAsyncHttpService.obtenerDatos();
-          $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
-        },
-        function (error) {
-          // handle errors here
-          console.log(error);
-        }
-        );
-    };
+      $scope.submitForm = function () {
+        callAsyncHttpService.async('POST', '/webapi/proyectoPublico/login', $scope.user)
+          .then(
+          function (result) {
+            var retorno = callAsyncHttpService.obtenerDatos();
+            $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
+          },
+          function (error) {
+            console.log(error);
+          }
+          );
+      };
 
-  }]).controller('altaUsuarioController', ['$scope', '$http', '$q', 'callAsyncHttpService', '$uibModal', '$log', function ($scope, $http, $q, callAsyncHttpService, $uibModal, $log) {
+  }]).controller('altaUsuarioController', ['$scope', 'callAsyncHttpService', '$uibModal', '$log', function ($scope, callAsyncHttpService, $uibModal, $log) {
 
     $scope.user = {};
     // calling our submit function.
-    $scope.submitForm = function () {
+    /*$scope.submitForm = function () {
       callAsyncHttpService.async('POST', '/webapi/proyectoPublico/altaUsuario', $scope.user)
         .then(
         function (result) {
@@ -32,43 +30,44 @@ angular.module('proyectoPublico').
           // handle errors here
           console.log(error);
         });
+    };*/
+    
+    
+    
 
-
-    };
-
-    $scope.items = ['item1', 'item2', 'item3'];
-    $scope.animationsEnabled = true;
-
-    $scope.open = function (size) {
+    $scope.submitForm = function (size) {
 
       var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'myModalContent.html',
+        animation: true,
+        templateUrl: 'confirmarModalHttp',
         controller: 'ModalConfirmController',
         size: size,
         resolve: {
-          items: function () {
-            return $scope.items;
+          message: function () {
+            return {
+              datos:$scope.user,
+              metodo:"POST",
+              url:"/webapi/proyectoPublico/altaUsuario"
+            }  
           }
         }
       });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-        $log.info("dato seleccionado"+selectedItem);
+      //metodo que se ejecuta y retornar los datos de la consulta
+      modalInstance.result.then(function (datosRetorno) {
+        $log.info("dato seleccionado" + datosRetorno);
+        $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
-    $scope.toggleAnimation = function () {
-      $scope.animationsEnabled = !$scope.animationsEnabled;
-    };
+
+
 
 
 
   }])
-  .controller('headController', ['$scope', '$http', '$q', 'callAsyncHttpService', '$window', function ($scope, $http, $q, callAsyncHttpService, $window) {
+  .controller('headController', ['$scope', 'callAsyncHttpService', '$window', function ($scope, callAsyncHttpService, $window) {
     // calling our submit function.
     $scope.showComponet = false;
     $scope.permiso = 'nada';
@@ -113,6 +112,6 @@ angular.module('proyectoPublico').
     };
 
   }])
-;
+  ;
 
 
