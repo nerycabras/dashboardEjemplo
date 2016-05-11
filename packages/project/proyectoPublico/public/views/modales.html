@@ -12,16 +12,12 @@
 </script>
 
 
-<script type="text/ng-template" id="cancelarModal">
+<script type="text/ng-template" id="succesRedirectModal">
     <div class="modal-header">
-        <h3 class="modal-title">Cancelar</h3>
+        <h5 class="modal-title">Éxito</h3>
     </div>
     <div class="modal-body">
-        <ul>
-            <li ng-repeat="item in items">
-                <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-            </li>
-        </ul>
+        <h7 class="modal-title">La transacción fué exitosa</h3>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>

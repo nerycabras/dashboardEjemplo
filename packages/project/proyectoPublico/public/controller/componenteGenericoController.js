@@ -1,5 +1,5 @@
 angular.module('componenteGenericoModulo')
-.controller('ModalConfirmController', [
+.controller('confirmarModalHttpController', [
   '$scope', '$uibModalInstance', 'message','callAsyncHttpService',function ($scope, $uibModalInstance, message,callAsyncHttpService) {
     /*
     $scope.ok = function () {

@@ -34,9 +34,11 @@ module.exports = function (mongoose) {
                     }
                 });
                 console.log('Entro login');
+                res.json({ estatus:1,mensaje:"Se insertó con éxito" })
             }else{
                  console.log('Usuario encontrado:', usuarioBusqueda.nombre) // Space Ghost is a talk show host.
-                 res.json({ error: 'usuario ya existe' })
+                 res.json({ estatus:3,mensaje:"Usuario ya existe" })
+                 
             }
             res.send();
         })
