@@ -1,19 +1,13 @@
 angular.module('componenteGenericoModulo')
 .controller('confirmarModalHttpController', [
   '$scope', '$uibModalInstance', 'message','callAsyncHttpService',function ($scope, $uibModalInstance, message,callAsyncHttpService) {
-    /*
-    $scope.ok = function () {
-      $uibModalInstance.close($scope.selected.item);
-    };*/
-
+    
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
     
-    $scope.ok = function () {
-      console.log('<---- Mensaje a enviar--->' );
+    $scope.oki = function () {
       console.log(message);
-      console.log('<---- Mensaje a enviar--->' );
       callAsyncHttpService.async(message.metodo, message.url, message.datos)
         .then(
         function (result) {
@@ -27,4 +21,16 @@ angular.module('componenteGenericoModulo')
         );
     };
     
-  }]);
+  }])
+  .controller('modalSimpleSuccesController', [
+  '$scope', '$uibModalInstance',function ($scope, $uibModalInstance) {    
+    $scope.ok = function () {
+      $uibModalInstance.close('ok');
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+    
+  }])
+  
+  ;

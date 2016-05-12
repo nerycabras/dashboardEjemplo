@@ -2,62 +2,65 @@
 angular.module('proyectoPublico').
   controller('loginController', ['$scope', 'callAsyncHttpService', '$window', '$uibModal', '$log', function ($scope, callAsyncHttpService, $window, $uibModal, $log) {
     $scope.user = {};
-      $scope.submitForm = function () {
-        callAsyncHttpService.async('POST', '/webapi/proyectoPublico/login', $scope.user)
-          .then(
-          function (result) {
-            var retorno = callAsyncHttpService.obtenerDatos();
-            $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
-          },
-          function (error) {
-            console.log(error);
-          }
-          );
-      };
+    $scope.submitForm = function () {
+      callAsyncHttpService.async('POST', '/webapi/proyectoPublico/login', $scope.user)
+        .then(
+        function (result) {
+          var retorno = callAsyncHttpService.obtenerDatos();
+          $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
+        },
+        function (error) {
+          console.log(error);
+        }
+        );
+    };
 
-  }]).controller('altaUsuarioController', ['$scope', 'callAsyncHttpService', '$uibModal', '$log', '$window',function ($scope, callAsyncHttpService, $uibModal, $log,$window) {
+  }]).controller('altaUsuarioController', ['$scope', 'callAsyncHttpService', '$uibModal', '$log', '$window', 'modalDefaultConfigService', function ($scope, callAsyncHttpService, $uibModal, $log, $window, modalDefaultConfigService) {
 
     $scope.user = {};
-    $scope.mensajeError="";
+    $scope.mensajeError = "";
     $scope.alerts = [];
-    $scope.closeAlert = function(index) {
+
+    $scope.closeAlert = function (index) {
       $scope.alerts.splice(index, 1);
     };
+    
+    //mostrar dialog de confirmar envío de datos
     $scope.submitForm = function (size) {
       $scope.alerts = [];
-      var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'confirmarModalHttp',
-        controller: 'confirmarModalHttpController',
-        size: size,
-        resolve: {
-          message: function () {
-            return {
-              datos:$scope.user,
-              metodo:"POST",
-              url:"/webapi/proyectoPublico/altaUsuario"
-            }  
-          }
-        }
-      });
-      //metodo que se ejecuta y retornar los datos de la consulta
-      modalInstance.result.then(function (datosRetorno) {
-        var datosRegresados=datosRetorno.data;
-        $log.info("Datos retorno ---------");
-         console.log(datosRetorno);
-        if(datosRegresados.estatus==3){
+      // se manda a llamar el método para obtener configuración default
+      var config = modalDefaultConfigService.obtenerDefaultCallBackModal1("confirmarModalHttp",
+        "confirmarModalHttpController", $scope.user, "POST", "/webapi/proyectoPublico/altaUsuario");
+        
+      var modalInstance = $uibModal.open(config);
+      modalInstance.result.then(function (datosRetorno){
+        var datosRegresados = datosRetorno.data;
+        console.log(datosRetorno);
+        if (datosRegresados.estatus == 3) {
           $scope.alerts.push({ type: 'danger', msg: datosRegresados.mensaje });
-        }else if(datosRegresados.estatus==1){
-          $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
+        } else if (datosRegresados.estatus == 1) {
+          mostrarConfirmDialog();
         }
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
     
-    
-    
-    
+    //mostrar dialog de success
+    function mostrarConfirmDialog(){
+      var config = modalDefaultConfigService.obtenerDefaultCallBackModal1(
+        "succesRedirectModal","modalSimpleSuccesController");
+      var modalInstance = $uibModal.open(config);
+      modalInstance.result.then(function (datosRetorno){
+          $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+        $window.location.href = 'http://localhost:3000/public/proyectoPublico/';
+      });
+    }
+
+
+
 
   }])
   .controller('headController', ['$scope', 'callAsyncHttpService', '$window', function ($scope, callAsyncHttpService, $window) {
