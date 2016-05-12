@@ -14,7 +14,6 @@ angular.module('proyectoPublico').
         }
         );
     };
-
   }]).controller('altaUsuarioController', ['$scope', 'callAsyncHttpService', '$uibModal', '$log', '$window', 'modalDefaultConfigService', function ($scope, callAsyncHttpService, $uibModal, $log, $window, modalDefaultConfigService) {
 
     $scope.user = {};
@@ -26,7 +25,7 @@ angular.module('proyectoPublico').
     };
     
     //mostrar dialog de confirmar envío de datos
-    $scope.submitForm = function (size) {
+    $scope.submitForm = function () {
       $scope.alerts = [];
       // se manda a llamar el método para obtener configuración default
       var config = modalDefaultConfigService.obtenerDefaultCallBackModal1("confirmarModalHttp",
