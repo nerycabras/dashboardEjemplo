@@ -207,14 +207,14 @@ function leerPaquetesFrontEnd(){
 
 
 mailer.extend(app, {
-  from: 'nery.210689@gmail.com',
+  from: 'nery.prueba@hotmail.com',
   host: 'smtp.gmail.com', // hostname
   secureConnection: true, // use SSL
   port: 465, // port for secure SMTP
   transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
   auth: {
-    user: 'nerycabras',
-    pass: 'avvae3e4'
+    user: 'exam',
+    pass: 'exampas2s2s3'
   }
 });
 
